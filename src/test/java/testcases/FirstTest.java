@@ -5,129 +5,91 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 public class FirstTest {
-    @Test
-    public void startDriver() {
+
+    public ChromeDriver driver;
+    public String bestBuyURL = "http://bestbuy.com";
+    private String account_btn = "//span[text()='Account']";
+    private String signIn_btn = "//a[@data-lid='ubr_mby_signin_b']";
+    private String fillingEmail = "//input[@type='email']";
+    private String emailLog = "email@ua.com";
+    private String fillingPassword = "//input[@type='password']";
+    private String passLog = "password";
+    private String logIn_btn = "//button[text()= 'Sign In']";
+    private String errorMsg = "//div[@aria-label='Error']";
+    private String checkBox = "//label[@for='cia-remember-me']";
+
+
+@BeforeMethod
+    public void setUp(){
 
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\Herro\\IdeaProjects\\Testproject\\src\\test\\resources\\executables\\chromedriver.exe");
-
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
-
-        ChromeDriver driver = new ChromeDriver(options);
-        driver.get("");
+        driver = new ChromeDriver(options);
     }
-
-    @Test
-    public void openWebsite() {
-
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Herro\\IdeaProjects\\Testproject\\src\\test\\resources\\executables\\chromedriver.exe");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        ChromeDriver driver = new ChromeDriver(options);
-        driver.get("http://bestbuy.com");
-    }
-
-    @Test
     public void openSignInPage() throws InterruptedException {
 
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Herro\\IdeaProjects\\Testproject\\src\\test\\resources\\executables\\chromedriver.exe");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        ChromeDriver driver = new ChromeDriver(options);
-        driver.get("http://bestbuy.com");
-
-        //span[text()='Account']
-        driver.findElement(By.xpath("//button[@aria-expanded= 'false' and @id= 'account-menu-account-button']")).click();
+        driver.get(bestBuyURL);
+        driver.findElement(By.xpath(account_btn)).click();
         Thread.sleep(1000);
-        driver.findElement(By.xpath("//a[@data-lid='ubr_mby_signin_b']")).click();
-    }
-
-
-    @Test
-    public void validateEmailPasswordFields() throws InterruptedException {
-
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Herro\\IdeaProjects\\Testproject\\src\\test\\resources\\executables\\chromedriver.exe");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        ChromeDriver driver = new ChromeDriver(options);
-        driver.get("http://bestbuy.com");
-
-        //span[text()='Account']
-        driver.findElement(By.xpath("//button[@aria-expanded= 'false' and @id= 'account-menu-account-button']")).click();
-        Thread.sleep(1000);
-        driver.findElement(By.xpath("//a[@data-lid='ubr_mby_signin_b']")).click();
-        //input[@type='email']
-        //input[@type='password']
-        driver.findElement(By.xpath("//input[@type='email']"));
-        driver.findElement(By.xpath("//input[@type='password']"));
-        driver.findElement(By.xpath("//button[text()='Sign In']"));
-        System.out.println(driver.findElement(By.xpath("//input[@type='email']")).isDisplayed());
-        System.out.println(driver.findElement(By.xpath("//input[@type='password']")).isDisplayed());
-        System.out.println(driver.findElement(By.xpath("//button[text()='Sign In']")).isDisplayed());
+        driver.findElement(By.xpath(signIn_btn)).click();
     }
 
     @Test
     public void fillEmailAndPasswordFieldsEndPressEnter() throws InterruptedException {
 
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Herro\\IdeaProjects\\Testproject\\src\\test\\resources\\executables\\chromedriver.exe");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        ChromeDriver driver = new ChromeDriver(options);
-        driver.get("http://bestbuy.com");
+        openSignInPage();
 
-        //span[text()='Account']
-        driver.findElement(By.xpath("//button[@aria-expanded= 'false' and @id= 'account-menu-account-button']")).click();
-        Thread.sleep(1000);
-        driver.findElement(By.xpath("//a[@data-lid='ubr_mby_signin_b']")).click();
-        //input[@type='email']
-        //input[@type='password']
-        driver.findElement(By.xpath("//input[@type='email']")). sendKeys("email@ua.com");
-        driver.findElement(By.xpath("//input[@type='password']")). sendKeys("password");
-        driver.findElement(By.xpath("//input[@type='password']")). sendKeys(Keys.ENTER);
+        Thread.sleep(2000);
+        driver.findElement(By.xpath(fillingEmail)).sendKeys(emailLog);
+        driver.findElement(By.xpath(fillingPassword)).sendKeys(passLog);
+        driver.findElement(By.xpath(logIn_btn)).submit();
     }
 
     @Test
     public void fillEmailAndPasswordFieldsAndValidateError() throws InterruptedException {
 
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Herro\\IdeaProjects\\Testproject\\src\\test\\resources\\executables\\chromedriver.exe");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        ChromeDriver driver = new ChromeDriver(options);
-        driver.get("http://bestbuy.com");
+        openSignInPage();
 
-        //span[text()='Account']
-        driver.findElement(By.xpath("//button[@aria-expanded= 'false' and @id= 'account-menu-account-button']")).click();
         Thread.sleep(2000);
-        driver.findElement(By.xpath("//a[@data-lid='ubr_mby_signin_b']")).click();
-        driver.findElement(By.xpath("//input[@type='email']")). sendKeys("email@ua.com");
-        driver.findElement(By.xpath("//input[@type='password']")). sendKeys("password");
-        driver.findElement(By.xpath("//input[@type='password']")). sendKeys(Keys.ENTER);
-        Thread.sleep(3000);
-        System.out.println(driver.findElement(By.xpath("//div[@aria-label='Error']")).isDisplayed());
-
+        driver.findElement(By.xpath(fillingEmail)). sendKeys(emailLog);
+        driver.findElement(By.xpath(fillingPassword)). sendKeys(passLog);
+        driver.findElement(By.xpath(logIn_btn)). sendKeys(Keys.ENTER);
+        Thread.sleep(2000);
+        System.out.println(driver.findElement(By.xpath(errorMsg)).isDisplayed());
     }
-
 
     @Test
     public void verifyCheckboxCheckedByDefault() throws InterruptedException {
 
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Herro\\IdeaProjects\\Testproject\\src\\test\\resources\\executables\\chromedriver.exe");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        ChromeDriver driver = new ChromeDriver(options);
-        driver.get("http://bestbuy.com");
+       openSignInPage();
 
-        driver.findElement(By.xpath("//button[@aria-expanded= 'false' and @id= 'account-menu-account-button']")).click();
-        Thread.sleep(1000);
-        driver.findElement(By.xpath("//a[@data-lid='ubr_mby_signin_b']")).click();
-        System.out.println(driver.findElement(By.xpath("//label[@for='cia-remember-me']")).isSelected());
-
+       System.out.println(driver.findElement(By.xpath(checkBox)).isSelected());
     }
 
+    @Test
+    public void isEnabled() throws InterruptedException {
+
+      driver.get("https://secure.bankofamerica.com/secure-mycommunications/public/appointments/?marketingCode=NEWHP_ECHMPG");
+
+      driver.findElement(By.xpath("//h3[text()='Everyday Banking']")).click();
+      Thread.sleep(2000);
+      System.out.println(driver.findElement(By.xpath("//button[text()= 'Cancel' and @href= 'javascript:void'(0)]")));
+      System.out.println(driver.findElement(By.xpath("//button[@id= 'nextBtnSubTopic']")).isEnabled());
     }
+
+@AfterMethod
+    public void tearDown() {
+      driver.quit();
+    }
+
+}
 
 
 
