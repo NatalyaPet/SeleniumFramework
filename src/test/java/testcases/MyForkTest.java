@@ -8,6 +8,8 @@ import org.testng.annotations.Test;
 import pageobjects.MFHomePage;
 import pageobjects.MFLoginPage;
 
+import java.time.Duration;
+
 
 public class MyForkTest extends MFBaseTest {
 
@@ -31,7 +33,6 @@ public class MyForkTest extends MFBaseTest {
    public void fillEmailAndPasswordPressEnterAndValidateError() throws InterruptedException {
        MFHomePage.signInPage();
        Thread.sleep(3000);
-      // MFLoginPage.fillingCredentials(MFLoginPage.emailCredentials, MFLoginPage.passwordCredentials);
        MFLoginPage.fillEmailAndPasswordPressEnterAndValidateError();
        Thread.sleep(2000);
        MFLoginPage.showError();
@@ -41,7 +42,11 @@ public class MyForkTest extends MFBaseTest {
     public void ValidateCheckbox() throws InterruptedException {
         MFHomePage.signInPage();
         MFLoginPage.validateCheckbox();
-
     }
 
+    @Test
+    public void SignupAndValidateOptions() throws InterruptedException {
+        MFHomePage.signUpPage();
+        MFHomePage.dropDown();
+    }
 }

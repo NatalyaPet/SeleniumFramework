@@ -16,7 +16,7 @@ public class MFLoginPage extends BaseMain {
     public String passwordCredentials = "password";
     public String errorMsg = "//div[@class='test-login-errors']";
     public String rememberMe = "//input[@id='auth-page-remember-me']";
-    public String logInBtn = "//a[@class='menu-item log-in-button']/div";
+
     public String signInBtn = "//button[contains(text(),'Log In')]";
 
 
@@ -32,14 +32,13 @@ public class MFLoginPage extends BaseMain {
         driver.findElement(By.xpath(emailField));
         driver.findElement(By.xpath(passwordField));
     }
-    public void fillEmailAndPasswordPressEnterAndValidateError() throws InterruptedException  {
-        fillingCredentials(emailCredentials,passwordCredentials);
-       // driver.findElement(By.xpath(emailField)).sendKeys(emailCredentials);
-        //driver.findElement(By.xpath(passwordField)).sendKeys(passwordCredentials);
-        //driver.findElement(By.xpath(logInBtn));
-        driver.findElement(By.xpath(passwordField)).sendKeys(Keys.ENTER);
+    public void fillEmailAndPasswordPressEnterAndValidateError() throws InterruptedException {
+        driver.findElement(By.xpath(emailField)).sendKeys(emailCredentials);
+        driver.findElement(By.xpath(passwordField)).sendKeys(passwordCredentials);
+        driver.findElement(By.xpath(signInBtn)).sendKeys(Keys.ENTER);
 
-        }
+    }
+
         public void showError () throws InterruptedException {
             Thread.sleep(2000);
             System.out.println(driver.findElement(By.xpath(errorMsg)).isDisplayed());
