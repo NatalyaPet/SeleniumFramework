@@ -1,56 +1,52 @@
 package pageobjects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WindowType;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MFHomePage extends BaseMain{
+public class MFHomePage extends BaseMain {
 
-    public MFHomePage(ChromeDriver driver){super(driver);}
+    public MFHomePage(ChromeDriver driver) {
+        super(driver);
+    }
+
     public String myForkUrl = "https://test.my-fork.com/";
     public String logInBtn = "//a[@class='menu-item log-in-button']/div";
 
-    public String signupBtn = "//div[@id= 'sign-up-button']";
-    public String jobTitle = "//select[@id= 'job-title']";
+    public void openWebsite() throws InterruptedException {
+        driver.get(myForkUrl);
 
+    }
 
+    public void tabOpener() throws InterruptedException {
+        driver.get(myForkUrl);
+        driver.switchTo().newWindow(WindowType.TAB);
+        List<String> tabHandler = new ArrayList<>(driver.getWindowHandles());
+        driver.switchTo().window(tabHandler.get(0));
+        System.out.println(tabHandler.size());
+    }
 
-   public void openWebsite()throws InterruptedException {
-       driver.get(myForkUrl);
+    public void pixelsOption() throws InterruptedException {
+        driver.get(myForkUrl);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,2000)", "");
 
-   }
+    }
     public void signInPage() throws InterruptedException {
 
         driver.get(myForkUrl);
         driver.findElement(By.xpath(logInBtn)).click();
 
     }
-    public void signUpPage() throws InterruptedException {
-        driver.get(myForkUrl);
-        Thread.sleep(4000);
-        driver.findElement(By.xpath(signupBtn)).click();
-        driver.findElement(By.xpath(jobTitle)).click();
-}
-
-    public void dropDown() {
-
-        WebElement searchDropDownElement;
-        searchDropDownElement = driver.findElement(By.id("job-title"));
-        Select searchDropDown = new Select(searchDropDownElement);
-        List<WebElement> options = new ArrayList<>();
-        options = searchDropDown.getOptions();
-        for (int i = 0; i < options.size(); i++){
-            System.out.println(options.get(i).getText());
-        }
-
-
-    }
-
-
-
 
 }
+
+
+
+

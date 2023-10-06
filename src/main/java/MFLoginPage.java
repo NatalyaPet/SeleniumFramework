@@ -23,6 +23,7 @@ public class MFLoginPage extends BaseMain {
     public void validateEmailPasswordLogin() throws InterruptedException {
 
         Thread.sleep(1000);
+
         System.out.println(driver.findElement(By.xpath(emailField)).isDisplayed());
         System.out.println(driver.findElement(By.xpath(passwordField)).isDisplayed());
         System.out.println(driver.findElement(By.xpath(signInBtn)).isDisplayed());

@@ -1,12 +1,18 @@
 package testcases;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
+import pageobjects.BaseMain;
 import pageobjects.MFHomePage;
 import pageobjects.MFLoginPage;
+import pageobjects.MFSignUpPage;
 
 import java.time.Duration;
 
@@ -16,10 +22,12 @@ public class MyForkTest extends MFBaseTest {
     @Test
     public void openWebsite() throws InterruptedException{
        MFHomePage.openWebsite();
+
     }
 
     @Test
     public void signInPage() throws InterruptedException {
+        MFHomePage.tabOpener();
         MFHomePage.signInPage();
     }
 
@@ -31,10 +39,10 @@ public class MyForkTest extends MFBaseTest {
 
    @Test
    public void fillEmailAndPasswordPressEnterAndValidateError() throws InterruptedException {
-       MFHomePage.signInPage();
-       Thread.sleep(3000);
+        MFHomePage.signInPage();
        MFLoginPage.fillEmailAndPasswordPressEnterAndValidateError();
-       Thread.sleep(2000);
+       WebDriverWait waitForErrorToLoad = new WebDriverWait(driver,Duration.ofSeconds(20));
+       waitForErrorToLoad.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(MFLoginPage.errorMsg)));
        MFLoginPage.showError();
     }
 
@@ -46,7 +54,19 @@ public class MyForkTest extends MFBaseTest {
 
     @Test
     public void SignupAndValidateOptions() throws InterruptedException {
-        MFHomePage.signUpPage();
-        MFHomePage.dropDown();
+        MFSignUpPage.signUpPage();
+        MFSignUpPage.dropDown();
     }
+
+    @Test
+    public void tabOpener() throws InterruptedException {
+        MFHomePage.tabOpener();
+    }
+
+    @Test
+    public void pixelsOption() throws InterruptedException{
+        MFHomePage.pixelsOption();
 }
+
+}
+
