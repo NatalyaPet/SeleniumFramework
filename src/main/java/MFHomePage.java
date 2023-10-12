@@ -18,33 +18,35 @@ public class MFHomePage extends BaseMain {
 
     public String myForkUrl = "https://test.my-fork.com/";
     public String logInBtn = "//a[@class='menu-item log-in-button']/div";
+    //public String scrollBy = "window.scrollBy(0,4000)";
+    //public By scrollBy = ("window.scrollBy(0," + 2000 + ")","");
 
     public void openWebsite() throws InterruptedException {
         driver.get(myForkUrl);
 
     }
 
-    public void tabOpener() throws InterruptedException {
+    public void tabOpener(int tabs) throws InterruptedException {
         driver.get(myForkUrl);
         driver.switchTo().newWindow(WindowType.TAB);
         List<String> tabHandler = new ArrayList<>(driver.getWindowHandles());
-        driver.switchTo().window(tabHandler.get(0));
+        driver.switchTo().window(tabHandler.get(tabs));
         System.out.println(tabHandler.size());
     }
 
-    public void pixelsOption() throws InterruptedException {
-        driver.get(myForkUrl);
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,2000)", "");
-
-    }
-    public void signInPage() throws InterruptedException {
-
+        public void signInPage() {
         driver.get(myForkUrl);
         driver.findElement(By.xpath(logInBtn)).click();
 
-    }
+        }
 
+    public void pixelsOption(int pixels) {
+        driver.get(myForkUrl);
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        js.executeScript("window.scrollBy(0,2000)", "");
+        System.out.println(pixels);
+
+    }
 }
 
 

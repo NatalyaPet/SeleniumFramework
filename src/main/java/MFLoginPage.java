@@ -45,7 +45,7 @@ public class MFLoginPage extends BaseMain {
             System.out.println(driver.findElement(By.xpath(errorMsg)).isDisplayed());
         }
 
-        public void validateCheckbox () {
+        public void validateCheckbox () throws InterruptedException {
             System.out.println(driver.findElement(By.xpath(rememberMe)).isSelected());
             }
 

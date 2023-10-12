@@ -1,6 +1,7 @@
 package pageobjects;
 
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.ScriptKey;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WindowType;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,18 +18,22 @@ public class BaseMain {
 
     }
 
-    public void Tab() throws InterruptedException {
+    public void Tab(int tabs) {
 
         driver.switchTo().newWindow(WindowType.TAB);
         List<String> tabHandler = new ArrayList<>(driver.getWindowHandles());
-        driver.switchTo().window(tabHandler.get(0));
-
+        driver.switchTo().window(tabHandler.get(tabs));
     }
 
-    public void Pixels() {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,2000)", "");
+    public void scrollBy(int pixels) {
 
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0" + pixels + ")", "");
     }
 }
+
+
+
+
+
 

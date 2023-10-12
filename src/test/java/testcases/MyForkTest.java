@@ -22,12 +22,11 @@ public class MyForkTest extends MFBaseTest {
     @Test
     public void openWebsite() throws InterruptedException{
        MFHomePage.openWebsite();
-
     }
 
     @Test
     public void signInPage() throws InterruptedException {
-        MFHomePage.tabOpener();
+        MFHomePage.tabOpener(0);
         MFHomePage.signInPage();
     }
 
@@ -40,10 +39,10 @@ public class MyForkTest extends MFBaseTest {
    @Test
    public void fillEmailAndPasswordPressEnterAndValidateError() throws InterruptedException {
         MFHomePage.signInPage();
-       MFLoginPage.fillEmailAndPasswordPressEnterAndValidateError();
-       WebDriverWait waitForErrorToLoad = new WebDriverWait(driver,Duration.ofSeconds(20));
-       waitForErrorToLoad.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(MFLoginPage.errorMsg)));
-       MFLoginPage.showError();
+        MFLoginPage.fillEmailAndPasswordPressEnterAndValidateError();
+        WebDriverWait waitForErrorToLoad = new WebDriverWait(driver,Duration.ofSeconds(20));
+        waitForErrorToLoad.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(MFLoginPage.errorMsg)));
+        MFLoginPage.showError();
     }
 
     @Test
@@ -60,13 +59,13 @@ public class MyForkTest extends MFBaseTest {
 
     @Test
     public void tabOpener() throws InterruptedException {
-        MFHomePage.tabOpener();
+        MFHomePage.tabOpener(0);
     }
 
     @Test
     public void pixelsOption() throws InterruptedException{
-        MFHomePage.pixelsOption();
-}
+        MFHomePage.pixelsOption(2000);
+    }
 
 }
 
