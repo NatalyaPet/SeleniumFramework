@@ -3,6 +3,7 @@ package testcases;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -17,19 +18,19 @@ import pageobjects.MFLoginPage;
 import pageobjects.MFSignUpPage;
 
 import java.time.Duration;
-
+import java.util.List;
 
 
 public class MyForkTest extends MFBaseTest {
 
-    public String emailCredentials = "email@ua.com"; // pass String
-    public String passwordCredentials = "1234567"; // pass int
-    public String errorMsg = "//div[@class='test-login-errors']"; //pass String
+
     public String rememberMe = "//input[@id='auth-page-remember-me']"; //tru/false boolean
-    public String textErrorMessage = "//p[contains(text(),'Error: email is incorrect')]";
     public String signupBtn = "//div[@id='sign-up-button']";
-    public String jobTitle = "//select[@id='job-title']";
+    public String jobTitleText = "//label[contains(text(),'Job Title')]";
     public String errorText = "Error: email is incorrect";
+    public String optionsList = "//select[@id='job-title']//option";
+    public String loginOptions = "//body/div[@id='app']/div[1]/div[2]/form[1]//label";
+    public String textForEmailTitle = "//label[contains(text(),'Email')]";
 
     @Test
     public void openWebsite() throws InterruptedException{
@@ -82,20 +83,30 @@ public class MyForkTest extends MFBaseTest {
     @Test
     public void hardAssertions() throws InterruptedException{
 
-        boolean rememberMe = true;
-        int passwordCredentials = 7;
+
+
         MFHomePage.signInPage();
-        Thread.sleep(2000);
+
+        String emailText = driver.findElement(By.xpath(textForEmailTitle)).getText();
+        Thread.sleep(4000);
+        int loginOptionsSize;
+        List<WebElement> elementList = driver.findElements(By.xpath(loginOptions));
+        loginOptionsSize = elementList.size();
+
         MFLoginPage.fillingCredentials(MFLoginPage.emailCredentials, MFLoginPage.passwordCredentials);
         MFLoginPage.validateCheckbox();
         MFLoginPage.errorText();
+        boolean rememberMeChecked = driver.findElement(By.xpath(rememberMe)).isSelected();
 
-        Assert.assertEquals(emailCredentials,"email@ua.com"); //String/true
-        Assert.assertEquals(passwordCredentials,7); //int/true
-        System.out.println(passwordCredentials);
-        Assert.assertEquals(errorText,"Error: email is incorrect"); //String/true
+        Assert.assertEquals(emailText,"Email"); //String/pass
+
+        Assert.assertEquals(loginOptionsSize,3); //int/pass
+        System.out.println(loginOptionsSize);
+
+        Assert.assertEquals(errorText,"Error: email is incorrect"); //String/pass
         System.out.println(errorText);
-        Assert.assertFalse(rememberMe,"False"); // boolean
+
+        Assert.assertFalse(rememberMeChecked,"False"); // boolean/fail
 
     }
 
@@ -103,20 +114,28 @@ public class MyForkTest extends MFBaseTest {
     public void assertSoft() throws InterruptedException{
 
         SoftAssert softAssert = new SoftAssert();
-    boolean signupBtn = true;
-    int options = 14;
 
+    MFHomePage.openWebsite();
+    boolean signupBtnDisplayed = driver.findElement(By.xpath(signupBtn)).isDisplayed();
     MFSignUpPage.signUpPage();
-    MFSignUpPage.dropDown();
 
-    softAssert.assertFalse(signupBtn,"false"); //boolean/false
-    System.out.println(signupBtn);
-    softAssert.assertEquals(options,10); //int/false
-    System.out.println(options);
-    softAssert.assertEquals(jobTitle,"jobTitle"); //String/false
-    System.out.println(jobTitle);
-    softAssert.assertEquals(options,14); //int/true
-    System.out.println(options);
+
+    softAssert.assertEquals(signupBtnDisplayed,false); //boolean/fail
+    System.out.println(signupBtnDisplayed);
+
+    MFSignUpPage.dropDown();
+    int optionsSize;
+    List<WebElement> elementList = driver.findElements(By.xpath(optionsList));
+    optionsSize = elementList.size();
+    softAssert.assertEquals(optionsSize,10); //int/fail
+    System.out.println(optionsSize);
+
+    String actualTitle = driver.findElement(By.xpath(jobTitleText)).getText();
+    softAssert.assertEquals(actualTitle,"Title"); //String/fail
+    System.out.println(actualTitle);
+
+    softAssert.assertEquals(optionsSize,14); //int/pass
+    System.out.println(optionsSize);
 
 softAssert.assertAll();
 }
