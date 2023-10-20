@@ -1,0 +1,19 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="MyFork" parallel="classes" thread-count="5" verbose="1">
+    <test name="Smoke" >
+        <classes>
+            <class name="testcases.BestBuyTest"/>
+            <class name="testcases.MyForkTest"/>
+        </classes>
+    </test>
+
+    <test name="Regression" >
+        <classes>
+            <class name="testcases.MyForkTest"/>
+        </classes>
+    </test>
+</suite>
+
+
+

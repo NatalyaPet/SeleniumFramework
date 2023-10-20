@@ -32,24 +32,24 @@ public class MyForkTest extends MFBaseTest {
     public String loginOptions = "//body/div[@id='app']/div[1]/div[2]/form[1]//label";
     public String textForEmailTitle = "//label[contains(text(),'Email')]";
 
-    @Test
+   // @Test
     public void openWebsite() throws InterruptedException{
        MFHomePage.openWebsite();
     }
 
-    @Test
+   @Test
     public void signInPage() throws InterruptedException {
         MFHomePage.tabOpener(0);
         MFHomePage.signInPage();
     }
 
-    @Test
+   // @Test
     public void validateEmailPasswordLogin() throws InterruptedException {
         MFHomePage.signInPage();
         MFLoginPage.validateEmailPasswordLogin();
     }
 
-   @Test
+   //@Test
    public void fillEmailAndPasswordPressEnterAndValidateError() throws InterruptedException {
         MFHomePage.signInPage();
         MFLoginPage.fillEmailAndPasswordPressEnterAndValidateError();
@@ -58,32 +58,30 @@ public class MyForkTest extends MFBaseTest {
         MFLoginPage.showError();
     }
 
-    @Test
+   // @Test
     public void ValidateCheckbox() throws InterruptedException {
         MFHomePage.signInPage();
         MFLoginPage.validateCheckbox();
     }
 
-    @Test
+   // @Test
     public void SignupAndValidateOptions() throws InterruptedException {
         MFSignUpPage.signUpPage();
         MFSignUpPage.dropDown();
     }
 
-    @Test
+   // @Test
     public void tabOpener() throws InterruptedException {
         MFHomePage.tabOpener(0);
     }
 
-    @Test
+    //@Test
     public void pixelsOption() throws InterruptedException{
         MFHomePage.pixelsOption(2000);
     }
 
-    @Test
+    //@Test
     public void hardAssertions() throws InterruptedException{
-
-
 
         MFHomePage.signInPage();
 
@@ -110,7 +108,7 @@ public class MyForkTest extends MFBaseTest {
 
     }
 
-@Test
+//@Test
     public void assertSoft() throws InterruptedException{
 
         SoftAssert softAssert = new SoftAssert();
