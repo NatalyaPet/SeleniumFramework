@@ -10,27 +10,27 @@ public class BestBuyTest extends BBBaseTest {
     public String passLog = "password";
 
 
-    @Test
+    @Test(groups = {"first","second"})
     public void openSignInPage() throws InterruptedException {
-        Thread.sleep(4000);
         BBHomePage.openSignInPage();
 }
 
-   // @Test
+    @Test
     public void fillEmailAndPasswordFieldsEndPressEnter() throws InterruptedException {
-        Thread.sleep(3000);
+
         BBHomePage.openSignInPage();
         Thread.sleep(3000);
-        BBLoginPage.fillCredentials(BBLoginPage.emailLog, BBLoginPage.passLog);
+        BBLoginPage.fillCredentials(emailLog, passLog);
         Thread.sleep(2000);
-        BBLoginPage.submitCredentials();
+        //BBLoginPage.submitCredentials();
     }
 
-    //@Test
+   // @Test
     public void fillEmailAndPasswordFieldsAndValidateError() throws InterruptedException {
+        BBHomePage.openSignInPage();
         Thread.sleep(3000);
         BBLoginPage.fillEmailAndPasswordFieldsEndPressEnter();
-        BBLoginPage.displayError();
+        //BBLoginPage.displayError();
     }
 
     //@Test

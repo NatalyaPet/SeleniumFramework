@@ -1,30 +1,21 @@
 package testcases;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pageobjects.BaseMain;
-import pageobjects.MFHomePage;
-import pageobjects.MFLoginPage;
-import pageobjects.MFSignUpPage;
 
 import java.time.Duration;
 import java.util.List;
 
 
-public class MyForkTest extends MFBaseTest {
+public class MyForkTest extends BaseTest {
 
 
-    public String rememberMe = "//input[@id='auth-page-remember-me']"; //tru/false boolean
+    public String rememberMe = "//input[@id='auth-page-remember-me']";
     public String signupBtn = "//div[@id='sign-up-button']";
     public String jobTitleText = "//label[contains(text(),'Job Title')]";
     public String errorText = "Error: email is incorrect";
@@ -37,19 +28,19 @@ public class MyForkTest extends MFBaseTest {
        MFHomePage.openWebsite();
     }
 
-   @Test
+   @Test(priority = 1, groups = {"first"})
     public void signInPage() throws InterruptedException {
         MFHomePage.tabOpener(0);
         MFHomePage.signInPage();
     }
 
-   // @Test
+   @Test(groups = {"third"})
     public void validateEmailPasswordLogin() throws InterruptedException {
         MFHomePage.signInPage();
         MFLoginPage.validateEmailPasswordLogin();
     }
 
-   //@Test
+   @Test
    public void fillEmailAndPasswordPressEnterAndValidateError() throws InterruptedException {
         MFHomePage.signInPage();
         MFLoginPage.fillEmailAndPasswordPressEnterAndValidateError();
@@ -58,7 +49,7 @@ public class MyForkTest extends MFBaseTest {
         MFLoginPage.showError();
     }
 
-   // @Test
+    @Test(priority = 2, groups = {"first","second"})
     public void ValidateCheckbox() throws InterruptedException {
         MFHomePage.signInPage();
         MFLoginPage.validateCheckbox();
@@ -80,7 +71,7 @@ public class MyForkTest extends MFBaseTest {
         MFHomePage.pixelsOption(2000);
     }
 
-    //@Test
+    @Test
     public void hardAssertions() throws InterruptedException{
 
         MFHomePage.signInPage();
@@ -108,7 +99,7 @@ public class MyForkTest extends MFBaseTest {
 
     }
 
-//@Test
+@Test
     public void assertSoft() throws InterruptedException{
 
         SoftAssert softAssert = new SoftAssert();

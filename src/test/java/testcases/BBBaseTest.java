@@ -13,7 +13,7 @@ public class BBBaseTest {
         BBHomePage BBHomePage;
         BBLoginPage BBLoginPage;
 
-        @BeforeMethod
+        @BeforeMethod(groups = {"first","second"}, alwaysRun = true)
         public void setUp(){
 
             System.setProperty("webdriver.chrome.driver", "C:\\Users\\Herro\\IdeaProjects\\Testproject\\src\\test\\resources\\executables\\chromedriver.exe");
@@ -24,7 +24,7 @@ public class BBBaseTest {
             BBLoginPage = new BBLoginPage(driver);
         }
 
-      @AfterMethod
+      @AfterMethod(groups = {"first","second"}, alwaysRun = true)
         public void tearDown() {
             if(driver!= null){
                 driver.quit();

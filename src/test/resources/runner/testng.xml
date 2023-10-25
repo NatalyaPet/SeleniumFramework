@@ -1,18 +1,33 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
-<suite name="MyFork" parallel="classes" thread-count="5" verbose="1">
+<suite name="MyFork" verbose="1" >
     <test name="Smoke" >
+        <groups>
+            <run>
+                <include name="first"></include>
+                <include name="second"></include>
+                <exclude name="third"></exclude>
+            </run>
+        </groups>
+
         <classes>
-            <class name="testcases.BestBuyTest"/>
-            <class name="testcases.MyForkTest"/>
+            <class name="testcases.BestBuyTest" >
+                <methods>
+                    <exclude name="fillEmailAndPasswordFieldsEndPressEnter"></exclude>
+                    <include name="openSignInPage"></include>
+                </methods>
+            </class>
+            <class name="testcases.MyForkTest">
+                <methods>
+                    <include name="fillEmailAndPasswordPressEnterAndValidateError"></include>
+                    <exclude name="hardAssertions"></exclude>
+                    <exclude name="assertSoft"></exclude>
+                </methods>
+            </class>
         </classes>
     </test>
 
-    <test name="Regression" >
-        <classes>
-            <class name="testcases.MyForkTest"/>
-        </classes>
-    </test>
+
 </suite>
 
 
