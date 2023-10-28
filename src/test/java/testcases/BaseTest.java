@@ -32,8 +32,6 @@ public class BaseTest {
         MFLoginPage = new pageobjects.MFLoginPage(driver);
         MFSignUpPage = new pageobjects.MFSignUpPage(driver);
         SoftAssert softAssert = new SoftAssert();
-
-
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(25));
         //driver.executeScript("window.scrollBy(0,2000)");

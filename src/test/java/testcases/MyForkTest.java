@@ -28,10 +28,11 @@ public class MyForkTest extends BaseTest {
        MFHomePage.openWebsite();
     }
 
-   @Test(priority = 1, groups = {"first"})
+   @Test(priority = 1)
     public void signInPage() throws InterruptedException {
         MFHomePage.tabOpener(0);
         MFHomePage.signInPage();
+
     }
 
    @Test(groups = {"third"})
@@ -40,33 +41,33 @@ public class MyForkTest extends BaseTest {
         MFLoginPage.validateEmailPasswordLogin();
     }
 
-   @Test
+   @Test(priority =1,groups = {"first"})
    public void fillEmailAndPasswordPressEnterAndValidateError() throws InterruptedException {
         MFHomePage.signInPage();
         MFLoginPage.fillEmailAndPasswordPressEnterAndValidateError();
         WebDriverWait waitForErrorToLoad = new WebDriverWait(driver,Duration.ofSeconds(20));
         waitForErrorToLoad.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(MFLoginPage.errorMsg)));
-        MFLoginPage.showError();
+       System.out.println(errorText);;
     }
 
-    @Test(priority = 2, groups = {"first","second"})
+    @Test(priority = 2, groups = {"second"})
     public void ValidateCheckbox() throws InterruptedException {
         MFHomePage.signInPage();
         MFLoginPage.validateCheckbox();
     }
 
-   // @Test
+ @Test
     public void SignupAndValidateOptions() throws InterruptedException {
         MFSignUpPage.signUpPage();
         MFSignUpPage.dropDown();
     }
 
-   // @Test
+   @Test
     public void tabOpener() throws InterruptedException {
         MFHomePage.tabOpener(0);
     }
 
-    //@Test
+    @Test
     public void pixelsOption() throws InterruptedException{
         MFHomePage.pixelsOption(2000);
     }
