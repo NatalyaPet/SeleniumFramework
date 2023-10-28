@@ -11,15 +11,17 @@
         </groups>
 
         <classes>
-            <class name="testcases.BestBuyTest" >
+            <class name="testcases.BoATest" >
                 <methods>
-                    <exclude name="fillEmailAndPasswordFieldsEndPressEnter"></exclude>
-                    <include name="openSignInPage"></include>
+                    <include name="openWebsite"></include>
+                    <include name="naviCarousel"></include>
+                    <exclude name="creditCardTab"></exclude>
                 </methods>
             </class>
             <class name="testcases.MyForkTest">
                 <methods>
                     <include name="fillEmailAndPasswordPressEnterAndValidateError"></include>
+                    <include name="ValidateCheckbox"></include>
                     <exclude name="hardAssertions"></exclude>
                     <exclude name="assertSoft"></exclude>
                 </methods>
