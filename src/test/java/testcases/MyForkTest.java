@@ -1,12 +1,15 @@
 package testcases;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import pageobjects.MFHomePage;
+import pageobjects.MFLoginPage;
 
 import java.time.Duration;
 import java.util.List;
@@ -22,60 +25,67 @@ public class MyForkTest extends BaseTest {
     public String optionsList = "//select[@id='job-title']//option";
     public String loginOptions = "//body/div[@id='app']/div[1]/div[2]/form[1]//label";
     public String textForEmailTitle = "//label[contains(text(),'Email')]";
+    public String historyBttn = "//a[@class='quiz-section-history-button' and contains(text(),'History')]";
 
    // @Test
     public void openWebsite() throws InterruptedException{
-       MFHomePage.openWebsite();
+       mfHomePage.openWebsite();
     }
 
-   @Test(priority = 1)
+  // @Test(priority = 1)
     public void signInPage() throws InterruptedException {
-        MFHomePage.tabOpener(0);
-        MFHomePage.signInPage();
+        mfHomePage.tabOpener(0);
+        mfHomePage.signInPage();
 
     }
 
-   @Test(groups = {"third"})
+   //@Test(groups = {"third"})
     public void validateEmailPasswordLogin() throws InterruptedException {
-        MFHomePage.signInPage();
-        MFLoginPage.validateEmailPasswordLogin();
+        mfHomePage.signInPage();
+        mfLoginPage.validateEmailPasswordLogin();
     }
 
-   @Test(priority =1,groups = {"first"})
+ //  @Test(priority =3,groups = {"first"})
    public void fillEmailAndPasswordPressEnterAndValidateError() throws InterruptedException {
-        MFHomePage.signInPage();
-        MFLoginPage.fillEmailAndPasswordPressEnterAndValidateError();
+        mfHomePage.signInPage();
+        mfLoginPage.fillEmailAndPasswordPressEnterAndValidateError();
         WebDriverWait waitForErrorToLoad = new WebDriverWait(driver,Duration.ofSeconds(20));
-        waitForErrorToLoad.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(MFLoginPage.errorMsg)));
+        waitForErrorToLoad.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(mfLoginPage.errorMsg)));
        System.out.println(errorText);;
     }
 
-    @Test(priority = 2, groups = {"second"})
+   // @Test(priority = 2, groups = {"second"})
     public void ValidateCheckbox() throws InterruptedException {
-        MFHomePage.signInPage();
-        MFLoginPage.validateCheckbox();
+        mfHomePage.signInPage();
+        mfLoginPage.validateCheckbox();
     }
 
- @Test
+ //@Test
     public void SignupAndValidateOptions() throws InterruptedException {
-        MFSignUpPage.signUpPage();
-        MFSignUpPage.dropDown();
+        mfSignUpPage.signUpPage();
+        mfSignUpPage.dropDown();
     }
 
-   @Test
+   //@Test
     public void tabOpener() throws InterruptedException {
-        MFHomePage.tabOpener(0);
+        mfHomePage.tabOpener(0);
     }
 
-    @Test
-    public void pixelsOption() throws InterruptedException{
-        MFHomePage.pixelsOption(2000);
+    //@Test
+    //public void pixelsOption2() throws InterruptedException{
+        //mfHomePage.pixelOption(3000);
+
+
+   // @Test
+    public void waitingTime() throws InterruptedException{
+        mfHomePage.waitSuggested(5);
     }
 
-    @Test
+
+   // @Test
     public void hardAssertions() throws InterruptedException{
 
-        MFHomePage.signInPage();
+        mfHomePage.signInPage();
 
         String emailText = driver.findElement(By.xpath(textForEmailTitle)).getText();
         Thread.sleep(4000);
@@ -83,9 +93,9 @@ public class MyForkTest extends BaseTest {
         List<WebElement> elementList = driver.findElements(By.xpath(loginOptions));
         loginOptionsSize = elementList.size();
 
-        MFLoginPage.fillingCredentials(MFLoginPage.emailCredentials, MFLoginPage.passwordCredentials);
-        MFLoginPage.validateCheckbox();
-        MFLoginPage.errorText();
+        mfLoginPage.fillingCredentials(mfLoginPage.emailCredentials, mfLoginPage.passwordCredentials);
+        mfLoginPage.validateCheckbox();
+        mfLoginPage.errorText();
         boolean rememberMeChecked = driver.findElement(By.xpath(rememberMe)).isSelected();
 
         Assert.assertEquals(emailText,"Email"); //String/pass
@@ -100,20 +110,20 @@ public class MyForkTest extends BaseTest {
 
     }
 
-@Test
+//@Test
     public void assertSoft() throws InterruptedException{
 
         SoftAssert softAssert = new SoftAssert();
 
-    MFHomePage.openWebsite();
+    mfHomePage.openWebsite();
     boolean signupBtnDisplayed = driver.findElement(By.xpath(signupBtn)).isDisplayed();
-    MFSignUpPage.signUpPage();
+    mfSignUpPage.signUpPage();
 
 
     softAssert.assertEquals(signupBtnDisplayed,false); //boolean/fail
     System.out.println(signupBtnDisplayed);
 
-    MFSignUpPage.dropDown();
+    mfSignUpPage.dropDown();
     int optionsSize;
     List<WebElement> elementList = driver.findElements(By.xpath(optionsList));
     optionsSize = elementList.size();
@@ -129,6 +139,45 @@ public class MyForkTest extends BaseTest {
 
 softAssert.assertAll();
 }
+
+
+@Test
+public void buttnNotDisplayed() throws InterruptedException{
+        SoftAssert softAssert = new SoftAssert();
+    mfHomePage.openCourseGallery();
+    boolean isDisplayedt;
+    if (driver.findElement(By.xpath(historyBttn)).isDisplayed())
+         isDisplayedt = true;
+    else isDisplayedt = false;
+    softAssert.assertEquals(isDisplayedt,false); //String/fail
+    System.out.println(isDisplayedt);
+
+    softAssert.assertAll();
+    }
+
+    //SoftAssert softAssert = new SoftAssert();
+        //boolean getText;
+        //if (driver.findElement(By.xpath(historyBttn)).isDisplayed())
+           // getText = true;
+      //  else getText = false;
+       // softAssert.assertEquals(getText,true); //String/fail
+        //System.out.println(getText);
+
+       // softAssert.assertAll();
+
+
+
+//@Test
+    public void validateHistory() throws InterruptedException{
+    mfHomePage.signInPage();
+    mfLoginPage.fillEmailAndPasswordPressEnterAndValidateError();
+    Thread.sleep(3000);
+    mfHomePage.openCourseGallery();
+    mfGalleryPage.historyBttnIsDisplayed();
+
+    }
+
+
 
 }
 

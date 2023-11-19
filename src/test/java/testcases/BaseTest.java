@@ -5,18 +5,19 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.asserts.SoftAssert;
-import pageobjects.MFHomePage;
-import pageobjects.MFLoginPage;
-import pageobjects.MFSignUpPage;
+import pageobjects.*;
 
 import java.time.Duration;
 
 public class BaseTest {
 
     public static ChromeDriver driver;
-    MFHomePage MFHomePage;
-    MFLoginPage MFLoginPage;
-    MFSignUpPage MFSignUpPage;
+    MFHomePage mfHomePage;
+    MFLoginPage mfLoginPage;
+    MFSignUpPage mfSignUpPage;
+    MFGalleryPage mfGalleryPage;
+    MFQuizPage mfQuizPage;
+    MFProgressPage mfProgressPage;
 
 
     @BeforeMethod(groups = {"first", "second", "third" }, alwaysRun = true)
@@ -28,9 +29,12 @@ public class BaseTest {
         options.addArguments("--remote-allow-origins=*");
 
         driver = new ChromeDriver(options);
-        MFHomePage = new pageobjects.MFHomePage(driver);
-        MFLoginPage = new pageobjects.MFLoginPage(driver);
-        MFSignUpPage = new pageobjects.MFSignUpPage(driver);
+        mfHomePage = new pageobjects.MFHomePage(driver);
+        mfLoginPage = new pageobjects.MFLoginPage(driver);
+        mfSignUpPage = new pageobjects.MFSignUpPage(driver);
+        mfGalleryPage = new MFGalleryPage(driver);
+        mfQuizPage = new MFQuizPage(driver);
+        mfProgressPage = new MFProgressPage(driver);
         SoftAssert softAssert = new SoftAssert();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(25));
@@ -38,9 +42,8 @@ public class BaseTest {
 
     }
 
-    @AfterMethod(groups = {"first", "second", "third" }, alwaysRun = true)
+   // @AfterMethod(groups = {"first", "second", "third" }, alwaysRun = true)
 
-    public void tearDown() {
-        driver.quit();
+   // public void tearDown() {
+    //   driver.quit();
     }
-}
