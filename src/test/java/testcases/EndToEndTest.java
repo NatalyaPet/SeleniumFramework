@@ -8,6 +8,7 @@ public class EndToEndTest extends BaseTest{
     public void validateHistoryWithoutSignin() throws InterruptedException {
         homePage.openCourseGallery();
         galleryPage.noHistory();
+        galleryPage.validateNoHistory();
     }
 
     @Test
@@ -21,7 +22,8 @@ public class EndToEndTest extends BaseTest{
     @Test //scenario2
     public void menuOptions() throws InterruptedException{
         homePage.openCourseGallery();
-        galleryPage.expertiseOptionsText();
+        galleryPage.expertiseTabsList();
+        galleryPage.quizTabValidation(galleryPage.expertiseTabsList());
 
     }
 

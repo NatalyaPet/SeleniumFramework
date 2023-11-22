@@ -21,34 +21,24 @@ public class ProgressPage extends BaseMain {
         int totalQuestions = 9;
         System.out.println(answeredQuestions);
         System.out.println(totalQuestions);
-
         int expectedProgress = (answeredQuestions * 100) / totalQuestions;
         //System.out.println(expectedProgress);
-
         WebElement progressBar = driver.findElement(By.xpath(progressBar1));
-
         String actualProgressText = driver.findElement(By.xpath(progressBar1)).getText();
         System.out.println(actualProgressText);
-
         int actualProgress = Integer.parseInt(actualProgressText.replaceAll("\\D", ""));
        // System.out.println(actualProgress);
-
         Assert.assertEquals(actualProgress, expectedProgress, "Progress bar value does not match");
         System.out.println("both values are matched");
 
-
     }
     public void secondQuestionProgress() throws InterruptedException {
-
-
         int answeredQuestions = 2;
         int totalQuestions = 9;
         System.out.println(answeredQuestions);
         System.out.println(totalQuestions);
-
         int expectedProgress = (answeredQuestions * 100) / totalQuestions;
         //System.out.println(expectedProgress);
-
         WebElement progressBar = driver.findElement(By.xpath(progressBar1));
 
         String actualProgressText = driver.findElement(By.xpath(progressBar1)).getText();

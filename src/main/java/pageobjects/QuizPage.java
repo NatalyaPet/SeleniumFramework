@@ -2,6 +2,7 @@ package pageobjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +33,10 @@ public class QuizPage extends BaseMain {
     public List<String> expected = new ArrayList<>();
 
 
+
     public void firstQuestion() throws InterruptedException {
         driver.get(url1);
-        driver.findElement(backBttn).click();
+       // driver.findElement(backBttn).click();
         driver.findElement(answerA).click();
         driver.findElement(By.xpath(nextButtn)).click();
 
@@ -54,10 +56,17 @@ public class QuizPage extends BaseMain {
         // System.out.println(currentProgress);
     }
     public void validateProgressBarPage2() throws InterruptedException{
+        int answeredQuestions = 1;
+        int totalQuestions = 9;
+        System.out.println(answeredQuestions);
+        System.out.println(totalQuestions);
+        int expectedProgress = (answeredQuestions * 100) / totalQuestions;
         driver.get(url1);
         driver.findElement(By.xpath(progressBar2));
-        String currentProgress = driver.findElement(By.xpath(progressBar2)).getText();
-        System.out.println(currentProgress);
+        String actualProgressText = driver.findElement(By.xpath(progressBar1)).getText();
+        int actualProgress = Integer.parseInt(actualProgressText.replaceAll("\\D", ""));
+        Assert.assertEquals(actualProgress, expectedProgress, "Progress bar value does not match");
+        System.out.println("both values are matched");
 
 }
     public void secondQuestion() throws InterruptedException { //works
